@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0cwowi2" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.18.0">
+  <bpmn:process id="test_camunda" name="test_camunda" isExecutable="true" camunda:historyTimeToLive="1000">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_13f3mcj</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_13f3mcj" sourceRef="StartEvent_1" targetRef="log-process" />
+    <bpmn:serviceTask id="log-process" name="Log Process" camunda:delegateExpression="${logDelegateTask}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="input">valor-variable</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_13f3mcj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0sx9br6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0457uy6" />
+    <bpmn:sequenceFlow id="Flow_0sx9br6" sourceRef="log-process" targetRef="Event_0ipei28" />
+    <bpmn:intermediateCatchEvent id="Event_0ipei28">
+      <bpmn:incoming>Flow_0sx9br6</bpmn:incoming>
+      <bpmn:outgoing>Flow_07szkbf</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_03ivxs8" messageRef="Message_09ofi7d" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="Event_1v1ci97">
+      <bpmn:incoming>Flow_07szkbf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_07szkbf" sourceRef="Event_0ipei28" targetRef="Event_1v1ci97" />
+  </bpmn:process>
+  <bpmn:message id="Message_09ofi7d" name="MSG_End_Process" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="test_camunda">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11mew8i_di" bpmnElement="log-process">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0457uy6_di" bpmnElement="Event_0457uy6">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1lxgrmm_di" bpmnElement="Event_0ipei28">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1v1ci97_di" bpmnElement="Event_1v1ci97">
+        <dc:Bounds x="852" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_13f3mcj_di" bpmnElement="Flow_13f3mcj">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sx9br6_di" bpmnElement="Flow_0sx9br6">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07szkbf_di" bpmnElement="Flow_07szkbf">
+        <di:waypoint x="628" y="117" />
+        <di:waypoint x="852" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
