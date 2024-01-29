@@ -17,15 +17,21 @@ public class TestController {
     @PostMapping
     public void startProcess(
         @RequestParam("process") String process,
-        @RequestParam("bussines_id") String bussinesId) {
-        camundaService.startProcess(process, bussinesId);
+        @RequestParam("expediente_id") String idExpediente) {
+        camundaService.startProcess(process, idExpediente);
     }
 
     @PostMapping("/message")
     public void sendMessage(
         @RequestParam("message") String message,
-        @RequestParam("bussines_id") String bussinesId,
-        @RequestParam("sub_id") String subId) {
-        camundaService.sendMessage(message, bussinesId, subId);
+        @RequestParam("expediente_id") String idExpediente) {
+        camundaService.sendMessage(message, idExpediente);
+    }
+    @PostMapping("/finalizar-tramite")
+    public void finalizarTramite(
+        @RequestParam("message") String message,
+        @RequestParam("expediente_id") String idExpediente,
+        @RequestParam("tramite_id") String idTramite) {
+        camundaService.finalizarTramite(message, idExpediente, idTramite);
     }
 }

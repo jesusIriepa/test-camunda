@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0r9zpj7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.18.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+  <bpmn:process id="tramite_su" name="tramite_su" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:startEvent id="Event_0rrb48x">
+      <bpmn:outgoing>Flow_1d4yxfa</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_0slljl1" name="Iniciar Tramite SU" camunda:asyncAfter="true" camunda:delegateExpression="#{iniciarTramiteDelegate}">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="NOMBRE_TRAMITE">TRAMITE_SUSPENSION</camunda:inputParameter>
+          <camunda:outputParameter name="NOMBRE_TRAMITE">#{NOMBRE_TRAMITE}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1d4yxfa</bpmn:incoming>
+      <bpmn:outgoing>Flow_1cflyls</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0b21m35">
+      <bpmn:incoming>Flow_19dr4ng</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateCatchEvent id="Event_0mwzxfa" name="Finalizar Tramite SU">
+      <bpmn:incoming>Flow_1cflyls</bpmn:incoming>
+      <bpmn:outgoing>Flow_01rblz8</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0xjj5cy" messageRef="Message_395k9tl" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_1d4yxfa" sourceRef="Event_0rrb48x" targetRef="Activity_0slljl1" />
+    <bpmn:sequenceFlow id="Flow_1cflyls" sourceRef="Activity_0slljl1" targetRef="Event_0mwzxfa" />
+    <bpmn:sequenceFlow id="Flow_01rblz8" sourceRef="Event_0mwzxfa" targetRef="Activity_12l6rc4" />
+    <bpmn:sequenceFlow id="Flow_19dr4ng" sourceRef="Activity_12l6rc4" targetRef="Event_0b21m35" />
+    <bpmn:serviceTask id="Activity_12l6rc4" name="Finalizar Tramite SU" camunda:delegateExpression="">
+      <bpmn:incoming>Flow_01rblz8</bpmn:incoming>
+      <bpmn:outgoing>Flow_19dr4ng</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:message id="Message_395k9tl" name="MSG_Finalizer_Tramite_SU" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="tramite_su">
+      <bpmndi:BPMNShape id="BPMNShape_0uxudgi" bpmnElement="Event_0rrb48x">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05eu1qf_di" bpmnElement="Activity_0slljl1">
+        <dc:Bounds x="270" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0b21m35_di" bpmnElement="Event_0b21m35">
+        <dc:Bounds x="752" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1q4bxwd_di" bpmnElement="Activity_12l6rc4">
+        <dc:Bounds x="580" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0tcm190_di" bpmnElement="Event_0mwzxfa">
+        <dc:Bounds x="452" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="432" y="145" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1d4yxfa_di" bpmnElement="Flow_1d4yxfa">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="270" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1cflyls_di" bpmnElement="Flow_1cflyls">
+        <di:waypoint x="370" y="120" />
+        <di:waypoint x="452" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01rblz8_di" bpmnElement="Flow_01rblz8">
+        <di:waypoint x="488" y="120" />
+        <di:waypoint x="580" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19dr4ng_di" bpmnElement="Flow_19dr4ng">
+        <di:waypoint x="680" y="120" />
+        <di:waypoint x="752" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
